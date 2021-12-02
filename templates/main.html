@@ -9,8 +9,15 @@
 
     <div id="lightgallery" class="row">
         {% for photo in gallery %}
+
             <a href="{{ photo.photo }}"
-               class="col-sm-6 col-md-4 mb-3" data-sub-html="<h4>{{ photo.description }}</h4>">
+               class="col-sm-6 col-md-4 mb-3" data-sub-html=
+                       {#                Описание фотки#}
+                       "<h4>{{ photo.description }}</h4>
+{#               Кнопка удаления фото, если пользователь является администратором#}
+                {% if user.is_superuser %}
+                    <button class='btn btn-danger' id='delete-photo'>Удалить</a>
+                {% endif %}">
                 <img src="{{ photo.photo }}"
                      class="img-thumbnail" style="object-fit: none; /* Do not scale the image */
   object-position: center; /* Center the image within the element */

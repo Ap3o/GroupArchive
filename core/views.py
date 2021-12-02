@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from . import models
 
 
@@ -6,3 +7,12 @@ from . import models
 def main(request):
     gallery = models.Gallery.objects.all()
     return render(request, "main.html", {"gallery": gallery})
+
+
+def delete_photo(request):
+    pass
+
+
+def logout_user(request):
+    logout(request)
+    return redirect("/")
