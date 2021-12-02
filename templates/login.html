@@ -17,10 +17,10 @@
                     <div class="form-group text-center">
                         <input type="submit" id="login" class="btnSubmit justify-content-center" value="Войти"/>
                     </div>
-                    <div class="form-group">
-                        <a href="#" class="ForgetPwd float-right" value="Login">Забыли пароль?</a>
-                    </div>
                 </form>
+                <div class="form-group">
+                    <button class="ForgetPwd float-right" id="forgot-password">Забыли пароль?</button>
+                </div>
             </div>
         </div>
     </div>
@@ -29,4 +29,9 @@
     {% if form.errors %}
         <script>toastr.error("Логин или пароль не совпадают, попробуйте снова.")</script>
     {% endif %}
+    <script>
+        $(document).on('click', '.ForgetPwd', function () {
+            toastr.warning("Обратитесь к администратору сайта для восстановления пароля.")
+        })
+    </script>
 {% endblock %}
