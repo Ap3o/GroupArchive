@@ -23,7 +23,10 @@ def delete_photo(request):
 
 def gallery_of_group(request, group_id):
     gallery = models.Gallery.objects.filter(group_id=group_id)
-    return render(request, "gallery.html", {"gallery": gallery, "groups": get_groups()})
+    group = models.Group.objects.get(id=group_id)
+    return render(request, "gallery.html",
+                  {"gallery": gallery, "groups": get_groups(), "title": "Галерея группы " + group.name,
+                   "text": group.description})
 
 
 def logout_user(request):
