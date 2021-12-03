@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     url('^$', views.main, name="main"),
+    url('gallery/(?P<group_id>\d+)/', views.gallery_of_group, name='gallery'),
     url('delete-photo/', views.delete_photo, name="delete_photo"),
     url('login/', auth_views.LoginView.as_view(template_name='login.html', redirect_authenticated_user=True),
         name="login"),

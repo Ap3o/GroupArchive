@@ -40,9 +40,9 @@
                         Список групп
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">ПО-415</a>
-                        <a class="dropdown-item" href="#">КС-408</a>
-                        <a class="dropdown-item" href="#">...</a>
+                        {% for group in groups %}
+                            <a class="dropdown-item" href="{% url 'gallery' group.id %}">{{ group.name }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </ul>
