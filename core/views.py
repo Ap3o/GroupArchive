@@ -17,8 +17,9 @@ def main(request):
 
 
 def delete_photo(request):
-    print(request.POST.get("id"))
-    return JsonResponse({"text": "all good"})
+    if request.user.is_superuser:
+        models.Gallery.objects.get(id=request.POST.get("id")).delete()
+        return JsonResponse({"text": "Фотография удалена! Нужно обновить страницу."})
 
 
 def gallery_of_group(request, group_id):
