@@ -1,0 +1,51 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1>{{ title }}</h1>
+        <p>{{ text }}</p>
+    </div>
+
+    <div id="lightgallery" class="row">
+        {% for photo in gallery %}
+
+            <a href="/{{ photo.photo }}"
+               class="col-sm-6 col-md-4 mb-3" data-sub-html=
+                       {#                Описание фотки#}
+                       "<h4>{{ photo.description }}</h4>
+{#               Кнопка удаления фото, если пользователь является администратором#}
+                {% if user.is_superuser %}
+                    <button class='btn btn-danger delete-photo' id='{{ photo.id }}'>Удалить</button>
+                {% endif %}">
+                <img src="/{{ photo.photo }}"
+                     class="img-thumbnail" style="object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 250px;
+  height: 125px;
+  " alt="{{ photo.description }}">
+            </a>
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>lightGallery(document.getElementById('lightgallery'));</script>
+    <script>
+        $(document).on('click', '.delete-photo', function () {
+            $.ajax({
+                type: 'POST',
+                data: {"id": this.id, "csrfmiddlewaretoken": "{{ csrf_token }}"},
+                url: '{% url "delete_photo" %}',
+                // если успешно, то
+                success: function (response) {
+                    toastr.success(response.text)
+                },
+                // если ошибка, то
+                error: function (response) {
+                    toastr.error(response)
+                }
+            });
+        })
+    </script>
+{% endblock %}
