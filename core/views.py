@@ -5,10 +5,10 @@ from . import models
 
 
 def get_groups():
+    # Получаем все значения из базы данных в таблице Group
     return models.Group.objects.all()
 
 
-# Create your views here.
 def main(request):
     gallery = models.Gallery.objects.all()
     return render(request, "gallery.html",
